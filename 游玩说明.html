@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>植物大战僵尸 · KARDS — 游玩说明</title>
+<style>
+:root{
+	--primary:#ff6400;--primary-light:#ff8a3d;--primary-dark:#b34700;--primary-dim:#ffd4b8;
+	--text:#2a1809;--text-dim:#8a6a4a;--border:#ffb066;
+	--card:rgba(255,100,0,.045);--card-line:rgba(255,100,0,.20);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+	background:#fff;background-image:radial-gradient(circle at 50% 0%,#fff6ec 0%,#fff 70%);
+	color:var(--text);font-family:"Segoe UI","Microsoft YaHei",sans-serif;
+	line-height:1.75;padding:32px 20px 64px;min-height:100vh;
+	-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:800px;margin:0 auto;}
+/* 顶部 */
+.hero{text-align:center;padding:8px 0 30px;border-bottom:1px dashed var(--card-line);margin-bottom:30px;}
+.hero .logo{
+	font-size:40px;font-weight:900;line-height:1.15;letter-spacing:2px;
+	background:linear-gradient(180deg,#ffb066,#ff6400);
+	-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero .sub{color:var(--text-dim);font-size:13px;letter-spacing:4px;margin-top:10px;}
+.hero .badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px;}
+.badge{
+	font-size:12px;letter-spacing:1px;color:var(--primary-dark);
+	background:var(--card);border:1px solid var(--card-line);border-radius:20px;padding:3px 12px;
+}
+.start{
+	display:inline-block;margin-top:22px;padding:13px 44px;border-radius:40px;
+	font-size:16px;font-weight:bold;color:#fff;text-decoration:none;letter-spacing:2px;
+	background:linear-gradient(180deg,var(--primary-light),var(--primary-dark));
+	border:2px solid var(--border);
+	box-shadow:0 0 26px rgba(255,100,0,.32),inset 0 1px 0 rgba(255,255,255,.3);
+	transition:transform .15s ease,filter .15s ease;
+}
+.start:hover{filter:brightness(1.12);transform:scale(1.03);}
+/* 章节 */
+section{margin-bottom:30px;}
+h2{
+	font-size:17px;letter-spacing:2px;margin-bottom:14px;padding-left:12px;
+	border-left:4px solid var(--primary);line-height:1.3;
+}
+h3{font-size:14px;letter-spacing:1px;margin:18px 0 8px;color:var(--primary-dark);}
+p{font-size:14px;margin-bottom:10px;}
+ul,ol{margin:0 0 6px 20px;}
+li{font-size:14px;margin-bottom:7px;}
+li::marker{color:var(--primary);}
+b,strong{color:var(--primary-dark);}
+em{font-style:normal;color:var(--text-dim);}
+code{
+	font-family:Consolas,"Courier New",monospace;font-size:13px;
+	background:rgba(255,100,0,.10);border-radius:4px;padding:1px 6px;color:var(--primary-dark);
+}
+/* 卡片 */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:6px;}
+.card{
+	background:var(--card);border:1px solid var(--card-line);border-radius:10px;
+	padding:14px 16px;font-size:13.5px;line-height:1.65;
+}
+.card .t{font-weight:bold;font-size:14px;margin-bottom:5px;letter-spacing:1px;}
+.card .t span{font-size:16px;margin-right:4px;}
+/* 步骤 */
+.steps{counter-reset:s;list-style:none;margin-left:0;}
+.steps li{counter-increment:s;position:relative;padding-left:34px;margin-bottom:12px;}
+.steps li::before{
+	content:counter(s);position:absolute;left:0;top:1px;width:22px;height:22px;
+	border-radius:50%;background:linear-gradient(180deg,var(--primary-light),var(--primary-dark));
+	color:#fff;font-size:12px;font-weight:bold;text-align:center;line-height:22px;
+}
+/* 坑位表 */
+.pit{list-style:none;margin-left:0;}
+.pit li{
+	position:relative;padding:10px 14px 10px 40px;margin-bottom:8px;
+	background:var(--card);border:1px solid var(--card-line);border-radius:8px;
+}
+.pit li::before{content:"!";position:absolute;left:14px;top:10px;color:var(--primary);font-weight:900;font-size:15px;}
+/* 数据条 */
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px;}
+.stat{
+	flex:1 1 128px;background:var(--card);border:1px solid var(--card-line);
+	border-radius:10px;padding:12px 10px;text-align:center;
+}
+.stat .n{font-size:22px;font-weight:900;color:var(--primary);line-height:1.2;}
+.stat .l{font-size:11.5px;color:var(--text-dim);letter-spacing:1px;margin-top:2px;}
+/* 问答 */
+.qa{background:var(--card);border:1px solid var(--card-line);border-radius:10px;padding:4px 16px;margin-bottom:8px;}
+.qa .q{font-size:13.5px;font-weight:bold;padding:11px 0 2px;}
+.qa .a{font-size:13.5px;color:var(--text-dim);padding-bottom:11px;}
+/* 页脚 */
+footer{
+	margin-top:36px;padding-top:20px;border-top:1px dashed var(--card-line);
+	text-align:center;color:var(--text-dim);font-size:12px;letter-spacing:1.5px;line-height:2;
+}
+@media (max-width:560px){
+	body{padding:22px 14px 48px;}
+	.hero .logo{font-size:30px;}
+	.hero .sub{letter-spacing:2px;font-size:12px;}
+	.start{padding:12px 30px;font-size:15px;}
+	h2{font-size:15.5px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+	<div class="logo">植物大战僵尸<br>K A R D S</div>
+	<div class="sub">PLANTS &nbsp;VS&nbsp; ZOMBIES</div>
+	<div class="badges">
+		<span class="badge">V1.2.0</span>
+		<span class="badge">单文件 · 无需安装</span>
+		<span class="badge">434 张卡</span>
+		<span class="badge">本机双人 / 联机对战</span>
+	</div>
+	<a class="start" href="index.html">▶ 开始游戏</a>
+</div>
+
+<section>
+	<h2>30 秒开始</h2>
+	<ol class="steps">
+		<li>把整个压缩包解压到一个文件夹（<b>不要只解压出一半</b>，路径里带中文也没关系）。</li>
+		<li>双击 <code>index.html</code>，用 <b>Chrome / Edge</b> 打开，游戏直接就开了。</li>
+		<li>第一次玩，点封面上的 <b>🎮 本机双人</b> 或 <b>🏛 竞技场</b>，不用搭卡组就能开打。</li>
+	</ol>
+	<p><em>真的只有 index.html 是必需的 —— 整个游戏（含卡图、桌饰画稿）都装在这一个文件里，单把它发给别人也能玩。其余文件只是说明。</em></p>
+</section>
+
+<section>
+	<h2>怎么玩</h2>
+	<div class="cards">
+		<div class="card">
+			<div class="t"><span>🎮</span>本机双人</div>
+			一台电脑、两个人轮流操作。面对面玩最省事，不需要网络，也不需要房间。
+		</div>
+		<div class="card">
+			<div class="t"><span>🌐</span>联机对战</div>
+			房主点「创建房间」拿到 6 位房间码，对手输入房间码加入，双方各自构筑卡组后开打。<b>需要外网</b>（要加载联机库并访问公共信令服务器）。<br><b>没有外网？用下面的「内网直连」</b>：房主点 ① 生成邀请码发给对手 → 对手粘进去点 ② 生成应答码发回 → 房主粘进去点 ③，同一个局域网（同一路由器 / 同一热点）就能连，不需要任何外网服务。
+		</div>
+		<div class="card">
+			<div class="t"><span>🏛</span>竞技场</div>
+			单人模式，用预设卡组连续对战，赢的场次越多奖励越好。适合练手。
+		</div>
+		<div class="card">
+			<div class="t"><span>📜</span>回忆之旅</div>
+			只使用经典卡池的单人战役，一张张解锁。想熟悉规则从这里开始。
+		</div>
+	</div>
+	<h3>出牌方式</h3>
+	<ul>
+		<li><b>单位卡</b>：直接拖到目标格子；或者点一下卡牌选中，再点目标格子。</li>
+		<li><b>指令卡</b>：点一下立即打出（点够了、前提也满足的话）。</li>
+		<li><b>反制卡</b>：点一下「激活」，盖在场上等对手踩，触发时才生效。</li>
+		<li><b>看详情</b>：长按卡牌，或右键点它。</li>
+		<li><b>结束回合</b>：右下角按钮，交给对手。</li>
+	</ul>
+</section>
+
+<section>
+	<h2>先搭一副卡组</h2>
+	<p>卡组固定 <b>39 张</b>：铁×4 / 铜×3 / 银×2 / 金×1 是每种卡能带的张数上限；选 <b>🌻 植物</b> 或 <b>🧟 僵尸</b> 作主国，另一个阵营作盟国，<b>盟国最多 12 张且不能带金卡</b>。</p>
+	<p>卡池 340 张可构筑卡，顶栏有一套筛选：</p>
+	<ul>
+		<li><b>品质</b>：铁 / 铜 / 银 / 金，一键只看某一档。</li>
+		<li><b>效果</b>：点「效果 ▾」多选，分<em>词条</em>（闪击、守护、烟幕…）和<em>效果</em>（亡计、部署效果、抽牌、消灭…）两组，组内命中任一即可，和品质/类型/搜索词叠加。</li>
+		<li><b>类型</b>：步兵 / 坦克 / 炮兵 / 战斗机 / 轰炸机 / 指令 / 反制。</li>
+	</ul>
+	<p>搭好之后记得用 <b>📤 导入 / 导出</b> 把卡组存成一段字符串 —— 换电脑、换浏览器、发给朋友都靠它。</p>
+</section>
+
+<section>
+	<h2>最容易踩的五个坑</h2>
+	<ul class="pit">
+		<li><b>先攻摸 4 张，后攻摸 5 张。</b>后手多一张是刻意补偿，别以为是 bug。</li>
+		<li><b>手牌上限 9 张。</b>第 10 张会直接爆掉，别贪抽牌。</li>
+		<li><b>守护、前线和战斗机不能有烟幕。</b>这几个词条互斥，组卡时注意。</li>
+		<li><b>部署效果只在「付费用部署」时触发。</b>被「加入战场」「转换」弄上场的单位不会触发，老兵升级也不会再触发一次。</li>
+		<li><b>指令不满足前提就打不出去。</b>比如需要总部血量够低才能用的卡，条件不够时牌会留在手里、不扣费，日志里会写原因 —— 这不是卡住了。</li>
+	</ul>
+</section>
+
+<section>
+	<h2>里面有什么</h2>
+	<div class="stats">
+		<div class="stat"><div class="n">434</div><div class="l">卡牌条目</div></div>
+		<div class="stat"><div class="n">340</div><div class="l">可构筑卡</div></div>
+		<div class="stat"><div class="n">180 / 160</div><div class="l">植物 / 僵尸</div></div>
+		<div class="stat"><div class="n">9</div><div class="l">场景</div></div>
+	</div>
+	<p style="margin-top:12px;">场景：竞技场 · 回忆之旅 · 地宫秘境 · 罗马秘境 · 海盗时代 · 狂野西部 · 天空之城 · 恐龙危机 · 月球基地。</p>
+	<p>扩展包：恐龙危机 · 月球基地 · <b>摇滚年代</b>（13 张 + 衍生卡「街机」）· <b>植物补强</b>（20 张植物金卡）· <b>蒸汽时代</b>（V1.2.0 新增，11 张可构筑 + 3 张衍生）。</p>
+	<p>另外还有：<b>🎨 主题</b>换配色（含深色模式）、<b>🪑 桌饰</b>给战场两角摆上铲子 / 墓碑 / 大哥头盔 / 电线杆（植物侧可选铲子、大哥头盔，僵尸侧可选墓碑、电线杆）、<b>📖 规则讲解</b>里有一份完整的规则书和词条表、植物/僵尸<b>图鉴</b>能查任意一张卡。</p>
+</section>
+
+<section>
+	<h2>存档与设置</h2>
+	<p>卡组、主题、桌饰的选择都记在<b>浏览器本地</b>。换浏览器、清缓存、换设备都会丢 —— 重要的卡组请用「导入 / 导出」保存成字符串。</p>
+	<p>建议固定用同一个浏览器打开同一个位置的 index.html，这样存档才连得上。</p>
+</section>
+
+<section>
+	<h2>遇到问题</h2>
+	<div class="qa">
+		<div class="q">联机一直卡在「正在加载联机模块」</div>
+		<div class="a">联机模块要从公共 CDN 下载，网络访问不了就会一直等。这时用<b>内网直连</b>（不需要外网），或者换网络 / 用「本机双人」——单机玩法完全不需要网络。</div>
+	</div>
+	<div class="qa">
+		<div class="q">战场两角没有桌饰</div>
+		<div class="a">窗口太窄（小于 400 px）时桌饰会自动隐藏。放大窗口，或在顶栏 🪑 / 封面「🪑 桌饰」里确认已开启、并选了造型。桌饰按<b>阵营</b>摆放：屏幕下方是你这局的阵营，上方是对手。</div>
+	</div>
+	<div class="qa">
+		<div class="q">颜色看着不习惯</div>
+		<div class="a">点封面 <b>🎨 主题</b>，可以换主色调，也能切深色模式，随时恢复默认。</div>
+	</div>
+	<div class="qa">
+		<div class="q">卡牌上的词条看不懂</div>
+		<div class="a">长按卡牌看详情；或者点封面 <b>📖 规则讲解</b>，里面有词条速查表和完整规则。</div>
+	</div>
+</section>
+
+<footer>
+	单文件网页游戏 · 无安装 · 无账号 · 不联网也能玩<br>
+	V1.2.0 &nbsp;·&nbsp; PLANTS VS ZOMBIES : KARDS
+</footer>
+
+</div>
+</body>
+</html>
